@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.9.3)
+    hooks (0.3.6)
+      uber (~> 0.0.4)
+    rbind (0.0.24)
+      ffi (>= 1.9.0)
+      hooks (>= 0.3.1)
+    ropencv (0.0.14)
+      ffi (~> 1.9.0)
+      rbind (>= 0.0.24)
+    uber (0.0.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ropencv

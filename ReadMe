@@ -1,0 +1,13 @@
+http://opencv.org/downloads.html
+www.cmake.org/cmake/resources/software.html
+http://docs.opencv.org/doc/tutorials/introduction/linux_install/linux_install.html#linux-installation
+
+Install rvm and ruby-2.0.0-p353 and rubygems
+gem install bundler
+bundle install
+
+
+
+ropencv Doc
+
+http://www.ropencv.aduda.eu/doc/OpenCV/Cv/HOGDescriptor.html
