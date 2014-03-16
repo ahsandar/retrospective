@@ -1,4 +1,5 @@
 require 'ropencv'
+require 'pry'
 include OpenCV
 
 class PersonDetector
@@ -8,7 +9,8 @@ class PersonDetector
   end
 
   def detect_surf
-    mat = cv::imread("sample1.jpg")
+    mat = cv::imread(assets_path("sample1.jpg"))
+   
     detector = cv::FeatureDetector::create("SURF")
     keypoints = Std::Vector.new(cv::KeyPoint)
     detector.detect(mat,keypoints)
@@ -23,14 +25,14 @@ class PersonDetector
 
   def detect_person
 
-    frame = cv::imread("sample1.jpg")
+    frame = cv::imread(assets_path("sample1.jpg"))
     detector = cv::HOGDescriptor.new
     puts detector.inspect
     people_detector_vec = cv::HOGDescriptor.get_default_people_detector
     default_people_detector_mat = cv::Mat.new(people_detector_vec.size, 1, cv::CV_32FC1, people_detector_vec.data, cv::Mat::AUTO_STEP)
     detector.setsvm_detector(default_people_detector_mat)
     founds = Std::Vector.new(cv::Rect)
-    founds_filtered = Std::Vector.new(cv::Rect)
+   
     window = Std::Vector::Double.new()
 
     detector.detect_multi_scale(frame, founds, window)
@@ -52,7 +54,7 @@ class PersonDetector
   def detect_face
 
     #depends on openCV installation so copied into the directory for easier access
-    face_cascade_name = "#{Dir.getwd}/haarcascade_frontalface_alt.xml"; 
+    face_cascade_name = assets_path("haarcascade_frontalface_alt.xml",'opencv') 
 
 
     frame_gray =  cv::Mat.new
@@ -60,7 +62,9 @@ class PersonDetector
 
     puts face_cascade.load( face_cascade_name ) ? ' loaded' : 'not loaded'
  
-    frame = cv::imread("sample1.jpg")
+    frame = cv::imread(assets_path("sample1.jpg"))
+   
+    
     faces = Std::Vector.new(cv::Rect)
 
     cv::cvt_color(frame,frame_gray, CV_BGR2GRAY)
@@ -78,8 +82,15 @@ class PersonDetector
     cv::imshow("key_points",frame)
     cv::wait_key(-1)
   end
+  
+  
+  def assets_path(file,type = 'images')
+    dir = Dir.getwd
+    asset_dir = File.join('assets', type ,file)
+    dir.gsub!(File.basename(dir),asset_dir)
+  end
 
 end
 
 pd= PersonDetector.new
-pd.detect_surf
+pd.detect_face
