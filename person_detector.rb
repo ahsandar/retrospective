@@ -82,4 +82,4 @@ class PersonDetector
 end
 
 pd= PersonDetector.new
-pd.detect_surf
+pd.detect_face
