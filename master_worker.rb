@@ -13,4 +13,6 @@ end
 person_detector = PersonDetector.new
 feature_detector = FeatureDetector.new
 face_detector = FaceDetector.new
-MasterDetector.detect(feature_detector)
+#MasterDetector.detect(feature_detector)
+video_splitter = VideoSplitter.new
+video_splitter.split_video_to_frames
