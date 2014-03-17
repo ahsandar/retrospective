@@ -2,9 +2,8 @@ class VideoSplitter
 
 
   def initialize(file = 'sample_1.mp4')
-    video_path = AssetHelper.assets_path(file,'videos')
-    @video_file = cv::VideoCapture.new(video_path)
-    @output_path = FileUtils.mkdir_p AssetHelper.assets_path("output/#{file.gsub('.','_')}",'videos')
+    @video_file = cv::VideoCapture.new(video_path(file))
+    @output_path = output_path(file)
     @frame = cv::Mat.new
     setup_file_attributes
   end
@@ -31,4 +30,14 @@ class VideoSplitter
   def frame_name(number)
   	 "frame_#{number}_#{Time.now.strftime('%Y%m%d%H%M%S%L')}.jpg"
   end
+
+  def video_path(file)
+    AssetHelper.assets_path(file,'videos')
+  end
+
+  def output_path(file)
+    output_path ||=FileUtils.mkdir_p AssetHelper.assets_path("output/#{file.gsub('.','_')}",'videos')
+    output_path
+  end
+  
 end
