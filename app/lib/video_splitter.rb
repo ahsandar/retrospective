@@ -19,13 +19,16 @@ class VideoSplitter
       grab = @video_file.grab
       output = @video_file.retrieve(@frame)
       break unless output || grab
-      write_frame_to_file(@frame,i)
+      write_frame_to_file(@frame,frame_name(i))
     end
   end
 
-  def write_frame_to_file(frame,frame_no)
-    frame_name = "frame_#{frame_no}_#{Time.now.strftime('%Y%m%d%H%M%S%L')}.jpg"
+  def write_frame_to_file(frame,frame_name)
     file_name = File.join(@output_path,frame_name)
     cv::imwrite(file_name,frame)
+  end
+
+  def frame_name(number)
+  	 "frame_#{number}_#{Time.now.strftime('%Y%m%d%H%M%S%L')}.jpg"
   end
 end
