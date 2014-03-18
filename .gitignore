@@ -1,3 +1,4 @@
 nbproject
 .DS_Store
 app/assets/videos/output/*
+app/log/*.log
