@@ -1,9 +1,10 @@
 class VideoOperator
-
+ 
+ attr_accessor :video_file, :output_dir_path, :cmd, :fps
 
   def initialize(file = 'sample_1.mp4')
     @video_file = video_path(file)
-    @output_dir_path = output_dir_path(file)
+    @output_dir_path = output_dir_filepath(file)
     @cmd = CommandService.new
     @fps = nil
   end
@@ -11,24 +12,24 @@ class VideoOperator
   
   def split_video_to_frames
     #ffmpeg -i Video.mpg Pictures%d.jpg
-    @cmd << 'ffmpeg'
-    @cmd << '-i'
-    @cmd << @video_file
-    @cmd << output_file_path
-    @cmd.execute!
+    cmd << 'ffmpeg'
+    cmd << '-i'
+    cmd << video_file
+    cmd << output_file_path
+    cmd.execute!
   end
 
   def fps
-    ffprobe(@video_file) do |output|
-      @fps = extract_fps(output)
+    ffprobe(video_file) do |output|
+      fps = extract_fps(output)
    end
-   puts @fps
+   puts fps
   end
 
   def ffprobe(video_file, &block)
-    @cmd << 'ffprobe'
-    @cmd << @video_file
-    output = @cmd.execute!
+    cmd << 'ffprobe'
+    cmd << video_file
+    output = cmd.execute!
     yield output if block_given?
   end
    
@@ -43,14 +44,14 @@ class VideoOperator
   end
 
   def output_file_path
-    File.join(@output_dir_path,frame_name)
+    File.join(output_dir_path,frame_name)
   end
 
   def video_path(file)
     AssetHelper.assets_path(file,'videos')
   end
 
-  def output_dir_path(file)
+  def output_dir_filepath(file)
     output_path ||=FileUtils.mkdir_p AssetHelper.assets_path("output/#{file.gsub('.','_')}",'videos')
     output_path.first
   end

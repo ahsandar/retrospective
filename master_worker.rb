@@ -12,8 +12,9 @@ end
 
 person_detector = PersonDetector.new
 feature_detector = FeatureDetector.new
-face_detector = FaceDetector.new
-#MasterDetector.detect(feature_detector)
-video_operator = VideoOperator.new
-#video_operator.split_video_to_frames
-video_operator.fps
+haar_detector = HaarDetector.new
+MasterDetector.detect(haar_detector)
+
+# video_operator = VideoOperator.new
+# video_operator.split_video_to_frames
+#video_operator.fps
