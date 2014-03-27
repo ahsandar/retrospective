@@ -2,7 +2,7 @@ class HaarDetector
 
   attr_accessor :face_cascade_names, :frames_dir, :output_dir, :colors
 
-  def initialize
+  def initialize(dir = 'sample_1_mp4')
     #depends on openCV installation so copied into the directory for easier access
     harr_cascades = ["haarcascade_fullbody.xml","haarcascade_upperbody.xml","haarcascade_frontalface_alt.xml","haarcascade_frontalface_alt2.xml",
                      'haarcascade_profileface.xml']
@@ -13,8 +13,8 @@ class HaarDetector
     harr_cascades.each do |haar_cascade|
       @face_cascade_names << AssetHelper.assets_path(haar_cascade,'opencv')
     end
-    @frames_dir = AssetHelper.assets_path("output/sample_1_mp4",'images')
-    @output_dir = AssetHelper.output_dir_filepath('sample_1_mp4', 'images')
+    @frames_dir = AssetHelper.assets_path("output/#{dir}",'images')
+    @output_dir = AssetHelper.output_dir_filepath("#{dir}", 'images')
   end
 
 

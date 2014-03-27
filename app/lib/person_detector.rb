@@ -2,9 +2,9 @@ class PersonDetector
 
   attr_accessor :frames_dir, :output_dir
 
-  def initialize
-    @frames_dir = AssetHelper.assets_path("output/sample_1_mp4",'videos') 
-    @output_dir = AssetHelper.output_dir_filepath('sample_1', 'images')
+  def initialize(dir = 'sample_1_mp4')
+    @frames_dir = AssetHelper.assets_path("output/#{dir}",'videos') 
+    @output_dir = AssetHelper.output_dir_filepath(dir, 'images')
   end
 
   def detect

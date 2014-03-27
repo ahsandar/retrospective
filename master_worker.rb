@@ -10,11 +10,11 @@ Dir["#{lib_dir}/*.rb"].each do |f|
   load(f)
 end
 
-person_detector = PersonDetector.new
-feature_detector = FeatureDetector.new
-haar_detector = HaarDetector.new
-MasterDetector.detect(haar_detector)
+person_detector = PersonDetector.new('sample_2_mp4')
+# feature_detector = FeatureDetector.new
+haar_detector = HaarDetector.new('sample_2_mp4')
+MasterDetector.detect(person_detector)
 
-# video_operator = VideoOperator.new
-# video_operator.split_video_to_frames
-#video_operator.fps
+video_operator = VideoOperator.new('sample_2.mp4')
+#video_operator.split_video_to_frames
+#video_operator.frames_per_sec

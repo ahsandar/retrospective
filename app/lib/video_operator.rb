@@ -4,7 +4,7 @@ class VideoOperator
 
   def initialize(file = 'sample_1.mp4')
     @video_file = video_path(file)
-    @output_dir_path = output_dir_filepath(file)
+    @output_dir_path = AssetHelper.output_dir_filepath(file)
     @cmd = CommandService.new
     @fps = nil
   end
@@ -15,15 +15,21 @@ class VideoOperator
     cmd << 'ffmpeg'
     cmd << '-i'
     cmd << video_file
+    cmd << '-r 4' 
     cmd << output_file_path
+    start_time = Time.now
     cmd.execute!
+    end_time = Time.now
+    puts end_time - start_time
   end
 
-  def fps
+  def frames_per_sec
+    puts 'getting fps'
     ffprobe(video_file) do |output|
-      fps = extract_fps(output)
+      puts output
+      @fps = extract_fps(output)
    end
-   puts fps
+   puts @fps
   end
 
   def ffprobe(video_file, &block)
@@ -34,8 +40,9 @@ class VideoOperator
   end
    
    def extract_fps(output)
-    fps_regex = /(\d*)\Dfps/
+    fps_regex = /(\d*\D*\d*)\D*fps/
     result = output.match(fps_regex)
+    puts result.inspect
     result[1]
    end
 
@@ -51,9 +58,6 @@ class VideoOperator
     AssetHelper.assets_path(file,'videos')
   end
 
-  def output_dir_filepath(file)
-    output_path ||=FileUtils.mkdir_p AssetHelper.assets_path("output/#{file.gsub('.','_')}",'videos')
-    output_path.first
-  end
+  
   
 end
