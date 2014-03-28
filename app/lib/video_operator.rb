@@ -6,7 +6,7 @@ class VideoOperator
     @video_file = video_path(file)
     @output_dir_path = AssetHelper.output_dir_filepath(file)
     @cmd = CommandService.new
-    @fps = nil
+    @fps = 1
   end
 
   
@@ -29,7 +29,7 @@ class VideoOperator
       puts output
       @fps = extract_fps(output)
    end
-   puts @fps
+   puts fps
   end
 
   def ffprobe(video_file, &block)
