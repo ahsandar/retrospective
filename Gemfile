@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'ropencv'
+gem 'ropencv' #, :git=> 'https://github.com/D-Alex/ropencv.git'
 gem 'rake'
 gem 'sidekiq'
 gem 'pry'
