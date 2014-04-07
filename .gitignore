@@ -1,0 +1,5 @@
+nbproject
+.DS_Store
+app/assets/videos/output/*
+app/assets/images/output/*
+app/log/*.log
